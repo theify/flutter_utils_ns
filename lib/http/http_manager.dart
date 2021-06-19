@@ -68,7 +68,11 @@ class HttpManager {
   /// [connectTimeout] 连接超时时间
   /// [receiveTimeout] 接收超时时间
   /// [interceptors] 基础拦截器
-  void init({String? baseUrl, int? connectTimeout, int? receiveTimeout, List<Interceptor>? interceptors}) {
+  void init(
+      {String? baseUrl,
+      int? connectTimeout,
+      int? receiveTimeout,
+      List<Interceptor>? interceptors}) {
     _client.options = _client.options.copyWith(
       baseUrl: baseUrl,
       connectTimeout: connectTimeout,
@@ -155,7 +159,8 @@ class HttpManager {
     String? tag,
   }) async {
     //检查网络是否连接
-    ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
+    ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       if (errorCallback != null) {
         errorCallback(HttpError(HttpError.NETWORK_ERROR, '网络异常，请稍后重试！'));
@@ -174,11 +179,16 @@ class HttpManager {
     try {
       CancelToken? cancelToken;
       if (tag != null) {
-        cancelToken = _cancelTokens[tag] == null ? CancelToken() : _cancelTokens[tag];
+        cancelToken =
+            _cancelTokens[tag] == null ? CancelToken() : _cancelTokens[tag];
         _cancelTokens[tag] = cancelToken!;
       }
 
-      Response<Map<String, dynamic>> response = await _client.request(url, data: data, queryParameters: params, options: options, cancelToken: cancelToken);
+      Response<Map<String, dynamic>> response = await _client.request(url,
+          data: data,
+          queryParameters: params,
+          options: options,
+          cancelToken: cancelToken);
       int? statusCode = response.statusCode;
       if (statusCode == HttpStatus.ok) {
         //成功
@@ -229,7 +239,8 @@ class HttpManager {
     String? tag,
   }) async {
     //检查网络是否连接
-    ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
+    ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       if (errorCallback != null) {
         errorCallback(HttpError(HttpError.NETWORK_ERROR, '网络异常，请稍后重试！'));
@@ -240,7 +251,9 @@ class HttpManager {
 
     ////0代表不设置超时
     int receiveTimeout = 0;
-    options ??= options == null ? Options(receiveTimeout: receiveTimeout) : options.copyWith(receiveTimeout: receiveTimeout);
+    options ??= options == null
+        ? Options(receiveTimeout: receiveTimeout)
+        : options.copyWith(receiveTimeout: receiveTimeout);
     //设置默认值
     params = params ?? {};
     url = _restfulUrl(url, params);
@@ -248,11 +261,17 @@ class HttpManager {
     try {
       CancelToken? cancelToken;
       if (tag != null) {
-        cancelToken = _cancelTokens[tag] == null ? CancelToken() : _cancelTokens[tag];
+        cancelToken =
+            _cancelTokens[tag] == null ? CancelToken() : _cancelTokens[tag];
         _cancelTokens[tag] = cancelToken!;
       }
 
-      Response response = await _client.download(url, savePath, onReceiveProgress: onReceiveProgress, queryParameters: params, data: data, options: options, cancelToken: cancelToken);
+      Response response = await _client.download(url, savePath,
+          onReceiveProgress: onReceiveProgress,
+          queryParameters: params,
+          data: data,
+          options: options,
+          cancelToken: cancelToken);
       //成功
       if (successCallback != null) {
         successCallback(response.data);
@@ -291,7 +310,8 @@ class HttpManager {
     String? tag,
   }) async {
     //检查网络是否连接
-    ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
+    ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       if (errorCallback != null) {
         errorCallback(HttpError(HttpError.NETWORK_ERROR, '网络异常，请稍后重试！'));
@@ -310,11 +330,17 @@ class HttpManager {
     try {
       CancelToken? cancelToken;
       if (tag != null) {
-        cancelToken = _cancelTokens[tag] == null ? CancelToken() : _cancelTokens[tag];
+        cancelToken =
+            _cancelTokens[tag] == null ? CancelToken() : _cancelTokens[tag];
         _cancelTokens[tag] = cancelToken!;
       }
 
-      Response<Map<String, dynamic>> response = await _client.request(url, onSendProgress: onSendProgress, data: data, queryParameters: params, options: options, cancelToken: cancelToken);
+      Response<Map<String, dynamic>> response = await _client.request(url,
+          onSendProgress: onSendProgress,
+          data: data,
+          queryParameters: params,
+          options: options,
+          cancelToken: cancelToken);
       int? statusCode = response.statusCode;
       if (statusCode == HttpStatus.ok) {
         //成功
@@ -408,7 +434,8 @@ class HttpManager {
     String? tag,
   }) async {
     //检查网络是否连接
-    ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
+    ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       log2Console('请求网络异常，请稍后重试！');
       throw (HttpError(HttpError.NETWORK_ERROR, '网络异常，请稍后重试！'));
@@ -424,11 +451,16 @@ class HttpManager {
     try {
       CancelToken? cancelToken;
       if (tag != null) {
-        cancelToken = _cancelTokens[tag] == null ? CancelToken() : _cancelTokens[tag];
+        cancelToken =
+            _cancelTokens[tag] == null ? CancelToken() : _cancelTokens[tag];
         _cancelTokens[tag] = cancelToken!;
       }
 
-      Response<Map<String, dynamic>> response = await _client.request(url, queryParameters: params, data: data, options: options, cancelToken: cancelToken);
+      Response<Map<String, dynamic>> response = await _client.request(url,
+          queryParameters: params,
+          data: data,
+          options: options,
+          cancelToken: cancelToken);
       int? statusCode = response.statusCode;
       if (statusCode == HttpStatus.ok) {
         //成功
@@ -474,7 +506,8 @@ class HttpManager {
     String? tag,
   }) async {
     //检查网络是否连接
-    ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
+    ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       log2Console('请求网络异常，请稍后重试！');
       throw (HttpError(HttpError.NETWORK_ERROR, '网络异常，请稍后重试！'));
@@ -482,7 +515,9 @@ class HttpManager {
 
     //设置下载不超时
     int receiveTimeout = 0;
-    options ??= options == null ? Options(receiveTimeout: receiveTimeout) : options.copyWith(receiveTimeout: receiveTimeout);
+    options ??= options == null
+        ? Options(receiveTimeout: receiveTimeout)
+        : options.copyWith(receiveTimeout: receiveTimeout);
     //设置默认值
     params = params ?? {};
     url = _restfulUrl(url, params);
@@ -490,11 +525,17 @@ class HttpManager {
     try {
       CancelToken? cancelToken;
       if (tag != null) {
-        cancelToken = _cancelTokens[tag] == null ? CancelToken() : _cancelTokens[tag];
+        cancelToken =
+            _cancelTokens[tag] == null ? CancelToken() : _cancelTokens[tag];
         _cancelTokens[tag] = cancelToken!;
       }
 
-      return _client.download(url, savePath, onReceiveProgress: onReceiveProgress, queryParameters: params, data: data, options: options, cancelToken: cancelToken);
+      return _client.download(url, savePath,
+          onReceiveProgress: onReceiveProgress,
+          queryParameters: params,
+          data: data,
+          options: options,
+          cancelToken: cancelToken);
     } on DioError catch (e, s) {
       log2Console('请求出错：$e\n$s');
       throw (HttpError.dioError(e));
@@ -522,7 +563,8 @@ class HttpManager {
     String? tag,
   }) async {
     //检查网络是否连接
-    ConnectivityResult connectivityResult = await (Connectivity().checkConnectivity());
+    ConnectivityResult connectivityResult =
+        await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.none) {
       log2Console('请求网络异常，请稍后重试！');
       throw (HttpError(HttpError.NETWORK_ERROR, '网络异常，请稍后重试！'));
@@ -538,11 +580,17 @@ class HttpManager {
     try {
       CancelToken? cancelToken;
       if (tag != null) {
-        cancelToken = _cancelTokens[tag] == null ? CancelToken() : _cancelTokens[tag];
+        cancelToken =
+            _cancelTokens[tag] == null ? CancelToken() : _cancelTokens[tag];
         _cancelTokens[tag] = cancelToken!;
       }
 
-      Response<Map<String, dynamic>> response = await _client.request(url, onSendProgress: onSendProgress, data: data, queryParameters: params, options: options, cancelToken: cancelToken);
+      Response<Map<String, dynamic>> response = await _client.request(url,
+          onSendProgress: onSendProgress,
+          data: data,
+          queryParameters: params,
+          options: options,
+          cancelToken: cancelToken);
       int? statusCode = response.statusCode;
       if (statusCode == HttpStatus.ok) {
         //成功

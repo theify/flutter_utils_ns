@@ -45,7 +45,8 @@ class NumberUtil {
 
       //去掉小数点后面的000
       // 判断是否有长度
-      if (points.isNotEmpty && (forcePoint || (!forcePoint && int.parse(points.join("")) > 0))) {
+      if (points.isNotEmpty &&
+          (forcePoint || (!forcePoint && int.parse(points.join("")) > 0))) {
         return '${val.join('')}.${points.join('')}';
       } else {
         return val.join('');
@@ -58,14 +59,18 @@ class NumberUtil {
   /// The parameter [fractionDigits] must be an integer satisfying: `0 <= fractionDigits <= 20`.
   static num? getNumByValueStr(String valueStr, {int? fractionDigits}) {
     double? value = double.tryParse(valueStr);
-    return fractionDigits == null ? value : getNumByValueDouble(value, fractionDigits);
+    return fractionDigits == null
+        ? value
+        : getNumByValueDouble(value, fractionDigits);
   }
 
   /// The parameter [fractionDigits] must be an integer satisfying: `0 <= fractionDigits <= 20`.
   static num? getNumByValueDouble(double? value, int fractionDigits) {
     if (value == null) return null;
     String valueStr = value.toStringAsFixed(fractionDigits);
-    return fractionDigits == 0 ? int.tryParse(valueStr) : double.tryParse(valueStr);
+    return fractionDigits == 0
+        ? int.tryParse(valueStr)
+        : double.tryParse(valueStr);
   }
 
   /// get int by value str.

@@ -50,7 +50,8 @@ class LcfarmLogInterceptor extends Interceptor {
   void Function(Object object) logPrint;
 
   @override
-  Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  Future onRequest(
+      RequestOptions options, RequestInterceptorHandler handler) async {
     logPrint('*** Request ***');
     printKV('uri', options.uri);
 
@@ -89,7 +90,8 @@ class LcfarmLogInterceptor extends Interceptor {
   }
 
   @override
-  Future onResponse(Response response, ResponseInterceptorHandler handler) async {
+  Future onResponse(
+      Response response, ResponseInterceptorHandler handler) async {
     logPrint("*** Response ***");
     _printResponse(response);
     handler.next(response);

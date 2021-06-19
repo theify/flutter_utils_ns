@@ -6,5 +6,6 @@ class EnumUtil {
   static String enumValueToString(Object o) => o.toString().split('.').last;
 
   ///String反显枚举
-  static T enumValueFromString<T>(String key, List<T> values) => values.firstWhere((v) => key == enumValueToString(v!), orElse: () => null as T);
+  static T enumValueFromString<T>(String key, List<T> values) => values
+      .firstWhere((v) => key == enumValueToString(v!), orElse: () => null as T);
 }
