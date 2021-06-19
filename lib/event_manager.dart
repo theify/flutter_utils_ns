@@ -10,13 +10,11 @@ class EventManager {
 
   factory EventManager() => _instance;
 
-  EventBus _bus;
+  late EventBus _bus;
 
   /// 创建 dio 实例对象
   EventManager._internal() {
-    if (_bus == null) {
-      _bus = EventBus();
-    }
+    _bus = EventBus();
   }
 
   EventBus get eventBus => _bus;

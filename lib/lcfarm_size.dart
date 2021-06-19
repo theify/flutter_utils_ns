@@ -11,15 +11,15 @@ class LcfarmSize {
   double height;
   bool allowFontScaling;
 
-  static MediaQueryData _mediaQueryData;
-  static double _screenWidth;
-  static double _screenHeight;
-  static double _pixelRatio;
-  static double _statusBarHeight;
+  static late MediaQueryData _mediaQueryData;
+  static late double _screenWidth;
+  static late double _screenHeight;
+  static late double _pixelRatio;
+  static late double _statusBarHeight;
 
-  static double _bottomBarHeight;
+  static late double _bottomBarHeight;
 
-  static double _textScaleFactor;
+  static late double _textScaleFactor;
 
   LcfarmSize({
     this.width = 375,
@@ -50,12 +50,6 @@ class LcfarmSize {
 
   static MediaQueryData get mediaQueryData => _mediaQueryData;
 
-  ///每个逻辑像素的字体像素数，字体的缩放比例
-  static double get textScaleFactory => _textScaleFactor;
-
-  ///设备的像素密度
-  static double get pixelRatio => _pixelRatio;
-
   ///当前设备宽度 dp
   static double get screenWidth => _screenWidth;
 
@@ -79,6 +73,12 @@ class LcfarmSize {
 
   ///底部安全区距离 px
   static double get bottomBarHeightPx => _bottomBarHeight * _pixelRatio;
+
+  ///每个逻辑像素的字体像素数，字体的缩放比例
+  static double get textScaleFactory => _textScaleFactor;
+
+  ///像素密度
+  static double get pixelRatio => _pixelRatio;
 
   ///根据屏幕宽度适配,实际的dp与设计稿px的比例
   static double get ratio => instance.scaleWidth;
@@ -111,8 +111,6 @@ class LcfarmSize {
   ///@param allowFontScaling 控制字体是否要根据系统的“字体大小”辅助选项来进行缩放。默认值为true。
   ///@param allowFontScaling Specifies whether fonts should scale to respect Text Size accessibility settings. The default is true.
   double setSp(double fontSize) {
-    return allowFontScaling
-        ? setWidth(fontSize)
-        : setWidth(fontSize) / _textScaleFactor;
+    return allowFontScaling ? setWidth(fontSize) : setWidth(fontSize) / _textScaleFactor;
   }
 }

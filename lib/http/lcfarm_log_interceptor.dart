@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter_common_utils/log_util.dart';
+import 'package:flutter_common_utils_ns/log_util.dart';
 
 void log2Console(Object object) {
   LogUtil.v(object);
@@ -50,13 +50,13 @@ class LcfarmLogInterceptor extends Interceptor {
   void Function(Object object) logPrint;
 
   @override
-  Future onRequest(RequestOptions options) async {
+  Future onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
     logPrint('*** Request ***');
     printKV('uri', options.uri);
 
     if (request) {
       printKV('method', options.method);
-      printKV('responseType', options.responseType?.toString());
+      printKV('responseType', options.responseType.toString());
       printKV('followRedirects', options.followRedirects);
       printKV('connectTimeout', options.connectTimeout);
       printKV('receiveTimeout', options.receiveTimeout);
@@ -71,38 +71,39 @@ class LcfarmLogInterceptor extends Interceptor {
       printAll(options.data);
     }
     logPrint("");
+    handler.next(options);
   }
 
   @override
-  Future onError(DioError err) async {
+  Future onError(DioError err, ErrorInterceptorHandler handler) async {
     if (error) {
       logPrint('*** DioError ***:');
-      logPrint("uri: ${err.request.uri}");
+      logPrint("uri: ${err.requestOptions.uri}");
       logPrint("$err");
       if (err.response != null) {
-        _printResponse(err.response);
+        _printResponse(err.response!);
       }
       logPrint("");
     }
+    handler.next(err);
   }
 
   @override
-  Future onResponse(Response response) async {
+  Future onResponse(Response response, ResponseInterceptorHandler handler) async {
     logPrint("*** Response ***");
     _printResponse(response);
+    handler.next(response);
   }
 
   void _printResponse(Response response) {
-    printKV('uri', response.request?.uri);
+    printKV('uri', response.requestOptions.uri);
     if (responseHeader) {
-      printKV('statusCode', response.statusCode);
+      printKV('statusCode', response.statusCode!);
       if (response.isRedirect == true) {
         printKV('redirect', response.realUri);
       }
-      if (response.headers != null) {
-        logPrint("headers:");
-        response.headers.forEach((key, v) => printKV(" $key", v.join(",")));
-      }
+      logPrint("headers:");
+      response.headers.forEach((key, v) => printKV(" $key", v.join(",")));
     }
     if (responseBody) {
       logPrint("Response Text:");

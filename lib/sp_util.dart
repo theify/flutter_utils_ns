@@ -7,7 +7,7 @@ class SpUtil {
   SpUtil._internal();
   static SpUtil _spUtils = SpUtil._internal();
 
-  static SharedPreferences _spf;
+  static SharedPreferences? _spf;
   factory SpUtil() {
     return _spUtils;
   }
@@ -15,7 +15,7 @@ class SpUtil {
   //初始化，必须要初始化
   Future<SharedPreferences> init() async {
     _spf = await SharedPreferences.getInstance();
-    return _spf;
+    return _spf!;
   }
 
   static bool _beforeCheck() {
@@ -27,82 +27,82 @@ class SpUtil {
 
   // 判断是否存在数据
   bool hasKey(String key) {
-    Set keys = getKeys();
-    return keys.contains(key);
+    Set? keys = getKeys();
+    return keys?.contains(key) ?? false;
   }
 
-  Set<String> getKeys() {
+  Set<String>? getKeys() {
     if (_beforeCheck()) return null;
-    return _spf.getKeys();
+    return _spf!.getKeys();
   }
 
   get(String key) {
     if (_beforeCheck()) return null;
-    return _spf.get(key);
+    return _spf!.get(key);
   }
 
-  getString(String key) {
+  String? getString(String key) {
     if (_beforeCheck()) return null;
-    return _spf.getString(key);
+    return _spf!.getString(key);
   }
 
-  Future<bool> putString(String key, String value) {
+  Future<bool>? putString(String key, String value) {
     if (_beforeCheck()) return null;
-    return _spf.setString(key, value);
+    return _spf!.setString(key, value);
   }
 
-  bool getBool(String key) {
+  bool? getBool(String key) {
     if (_beforeCheck()) return null;
-    return _spf.getBool(key);
+    return _spf!.getBool(key);
   }
 
-  Future<bool> putBool(String key, bool value) {
+  Future<bool>? putBool(String key, bool value) {
     if (_beforeCheck()) return null;
-    return _spf.setBool(key, value);
+    return _spf!.setBool(key, value);
   }
 
-  int getInt(String key) {
+  int? getInt(String key) {
     if (_beforeCheck()) return null;
-    return _spf.getInt(key);
+    return _spf!.getInt(key);
   }
 
-  Future<bool> putInt(String key, int value) {
+  Future<bool>? putInt(String key, int value) {
     if (_beforeCheck()) return null;
-    return _spf.setInt(key, value);
+    return _spf!.setInt(key, value);
   }
 
-  double getDouble(String key) {
+  double? getDouble(String key) {
     if (_beforeCheck()) return null;
-    return _spf.getDouble(key);
+    return _spf!.getDouble(key);
   }
 
-  Future<bool> putDouble(String key, double value) {
+  Future<bool>? putDouble(String key, double value) {
     if (_beforeCheck()) return null;
-    return _spf.setDouble(key, value);
+    return _spf!.setDouble(key, value);
   }
 
-  List<String> getStringList(String key) {
-    return _spf.getStringList(key);
+  List<String>? getStringList(String key) {
+    return _spf!.getStringList(key);
   }
 
-  Future<bool> putStringList(String key, List<String> value) {
+  Future<bool>? putStringList(String key, List<String> value) {
     if (_beforeCheck()) return null;
 
-    return _spf.setStringList(key, value);
+    return _spf!.setStringList(key, value);
   }
 
   dynamic getDynamic(String key) {
     if (_beforeCheck()) return null;
-    return _spf.get(key);
+    return _spf!.get(key);
   }
 
-  Future<bool> remove(String key) {
+  Future<bool>? remove(String key) {
     if (_beforeCheck()) return null;
-    return _spf.remove(key);
+    return _spf!.remove(key);
   }
 
-  Future<bool> clear() {
+  Future<bool>? clear() {
     if (_beforeCheck()) return null;
-    return _spf.clear();
+    return _spf!.clear();
   }
 }

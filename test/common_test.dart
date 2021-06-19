@@ -1,4 +1,4 @@
-import 'package:flutter_common_utils/http/http_manager.dart';
+import 'package:flutter_common_utils_ns/http/http_manager.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// @desc 测试

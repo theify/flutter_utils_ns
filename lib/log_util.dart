@@ -14,17 +14,17 @@ class LogUtil {
     tag = tag;
   }
 
-  static void e(Object object, {String tag}) {
+  static void e(Object object, {String? tag}) {
     _printLog(tag, '  e  ', object);
   }
 
-  static void v(Object object, {String tag}) {
+  static void v(Object object, {String? tag}) {
     if (debug) {
       _printLog(tag, '  v  ', object);
     }
   }
 
-  static void _printLog(String tag, String stag, Object object) {
+  static void _printLog(String? tag, String stag, Object object) {
     StringBuffer sb = StringBuffer();
     sb.write((tag == null || tag.isEmpty) ? tagDefault : tag);
     sb.write(stag);
